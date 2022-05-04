@@ -1,4 +1,4 @@
-const room = (physics, floorSize, isVisible = false) => {
+const roomComposition = (physics, floorSize, isVisible = false) => {
   const wallSize = 5;
   const collisionFlag = 2;
 
@@ -66,4 +66,4 @@ const room = (physics, floorSize, isVisible = false) => {
   return ground;
 }
 
-export { room };
+export { roomComposition };
