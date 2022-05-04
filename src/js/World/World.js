@@ -55,7 +55,7 @@ class World {
         // this.collisionMarker.position.x = otherObject.position.x;
         // this.collisionMarker.position.y = otherObject.position.y;
         // this.collisionMarker.position.z = otherObject.position.z;
-        otherObject.body.applyForce
+        // otherObject.body.applyForce
       }
     })
 
