@@ -1,9 +1,12 @@
-import { Color } from "three";
+import { Color, PositionalAudio } from "three";
+import { PositionalAudioHelper } from "three/examples/jsm/helpers/PositionalAudioHelper";
 import { sphere } from "../meshes/sphere";
 import { plasticColor } from "../materials/physicalMaterial";
+import { Tone } from "tone/build/esm/core/Tone";
+import { Oscillator } from "tone";
 
-const ballComposition = (scene, physics, loop, envmap) => {
-  const cItems = 1;
+const ballComposition = (scene, physics, loop, listener, envmap) => {
+  const cItems = 40;
   const spreadWidth = 10;
 
   // const hue = Math.random();
@@ -28,21 +31,40 @@ const ballComposition = (scene, physics, loop, envmap) => {
     physics.add.existing(sphereItem);
     loop.updatables.push(sphereItem);
 
+    // 
+
+    // const positionalAudio = new PositionalAudio(listener);
+    // const oscillator = listener.context.createOscillator();
+    // oscillator.type = 'sine';
+    // oscillator.frequency.setValueAtTime( Math.random()*500, positionalAudio.context.currentTime );
+    // oscillator.start(0);
+    // positionalAudio.setNodeSource( oscillator );
+    // positionalAudio.setRefDistance(20);
+    // positionalAudio.setVolume(0.01);
+    // sphereItem.add(positionalAudio);
+
+    // const positionalAudio = new PositionalAudio(listener);
+    // Tone.context = positionalAudio.context;
+    // const osc = new Oscillator(440, "sine");
+    // positionalAudio.setNodeSource(osc);
+    // sphereItem.add(positionalAudio);
+
+    // 
+
     sphereItem.body.checkCollisions = true;
     sphereItem.body.on.collision((otherObject, event) => {
       // console.log(event);
       // console.log(sphereItem.position);
 
       if (event === 'start') {
-
+        // console.log('start');
       }
 
       if (event === 'collision') {
-        
       }
 
       if (event === 'end') {
-        
+        // console.log('end');
       }
 
       // if (event === 'start') {

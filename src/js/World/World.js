@@ -8,7 +8,7 @@ import { createWalls } from './components/meshes/walls.js';
 import { VrControls } from './system/VrControls.js';
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
 import { AmmoPhysics, PhysicsLoader } from '@enable3d/ammo-physics';
-import { PMREMGenerator } from 'three';
+import { PMREMGenerator, AudioListener } from 'three';
 import { ballComposition } from './components/compositions/ballComposition.js';
 import { roomComposition } from './components/compositions/roomComposition.js';
 
@@ -19,6 +19,8 @@ class World {
     this.renderer = createRenderer();
     this.scene = createScene(this.renderer);
     this.camera = createCamera();
+    // this.listener = new AudioListener();
+    // this.camera.add(this.listener);
     this.lights = createLights(this.scene);
     this.loop = new Loop(this.camera, this.scene, this.renderer);
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
@@ -45,7 +47,7 @@ class World {
     const envmaploader = new PMREMGenerator(this.renderer);
     const envmap = envmaploader.fromCubemap(hdrmap);
     this.walls = createWalls(this.scene, this.floorSize, envmap);
-    const bc = ballComposition(this.scene, this.physics, this.loop, envmap);
+    const bc = ballComposition(this.scene, this.physics, this.loop, this.listener, envmap);
   }
 
   start() {
