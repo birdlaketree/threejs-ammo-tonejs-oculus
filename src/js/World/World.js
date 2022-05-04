@@ -6,11 +6,9 @@ import { createCamera, createDolly } from './components/camera.js';
 import { createLights } from './components/lights.js';
 import { createWalls } from './components/meshes/walls.js';
 import { VrControls } from './system/VrControls.js';
-import { sphere } from './components/meshes/sphere.js';
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
 import { AmmoPhysics, PhysicsLoader } from '@enable3d/ammo-physics';
 import { PMREMGenerator } from 'three';
-import { plasticColor } from './components/materials/physicalMaterial.js';
 import { ballComposition } from './components/compositions/ballComposition.js';
 import { roomComposition } from './components/compositions/roomComposition.js';
 
@@ -35,45 +33,18 @@ class World {
   }
 
   ammoStart() {
-    console.log('ammoStart.5');
-
     this.physics = new AmmoPhysics(this.scene);
     // this.physics.debug.enable(true);
     this.loop.setPhysics(this.physics);
 
-    const r = roomComposition(this.physics, this.floorSize, false);
-
-    // r.ground.body.checkCollisions = true;
-    // r.ground.body.on.collision((otherObject, event) => {
-    //   console.log(event);
-
-    //   if (event === 'start') {
-    //     console.log('collision', otherObject);
-    //     console.log('collision:p', otherObject.position);
-    //     console.log('collision:v', otherObject.body.velocity);
-    //     console.log('collision:a', otherObject.body.angularVelocity);
-    //     console.log('collision:mass', otherObject.body.getMass);
-
-    //     this.collisionMarker.position.x = otherObject.position.x;
-    //     this.collisionMarker.position.y = otherObject.position.y;
-    //     this.collisionMarker.position.z = otherObject.position.z;
-    //   }
-    // })
-
+    const room = roomComposition(this.physics, this.floorSize, false);
     new RGBELoader().load(hdrURL, (hdrmap) => this.buildScene(hdrmap));
   }
 
   buildScene(hdrmap) {
-    console.log('buildScene.5');
     const envmaploader = new PMREMGenerator(this.renderer);
     const envmap = envmaploader.fromCubemap(hdrmap);
-
     this.walls = createWalls(this.scene, this.floorSize, envmap);
-
-    // const markerMaterial = plasticColor(0xff0000, envmap);
-    // this.collisionMarker = sphere(markerMaterial, 0.15);
-    // this.scene.add(this.collisionMarker);
-
     const bc = ballComposition(this.scene, this.physics, this.loop, envmap);
   }
 
