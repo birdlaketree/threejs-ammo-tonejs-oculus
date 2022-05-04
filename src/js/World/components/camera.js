@@ -1,10 +1,10 @@
-import { PerspectiveCamera, Group } from 'three';
+import { PerspectiveCamera, Group, Math } from 'three';
 
 const createCamera = () => {
   const camera = new PerspectiveCamera( 35, window.innerWidth / window.innerHeight, 0.1, 200 );
-  camera.position.x = 7.5;
-  camera.position.z = 10;
-  camera.position.y = 6;
+  camera.position.x = 20;
+  camera.position.z = 30;
+  camera.position.y = 20;
   return camera;
 }
 
