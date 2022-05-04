@@ -3,7 +3,7 @@ import { sphere } from "../meshes/sphere";
 import { plasticColor } from "../materials/physicalMaterial";
 
 const ballComposition = (scene, physics, loop, envmap) => {
-  const cItems = 12;
+  const cItems = 1;
   const spreadWidth = 10;
 
   // const hue = Math.random();
@@ -17,7 +17,7 @@ const ballComposition = (scene, physics, loop, envmap) => {
     color.setHSL(hueShift, s1, l1);
 
     const sphereMaterial = plasticColor(color, envmap);
-    const sphereItem = sphere(sphereMaterial, Math.random()/6 + 0.02);
+    const sphereItem = sphere(sphereMaterial, Math.random()/6 + 0.04);
 
     sphereItem.position.x = Math.random() * spreadWidth - spreadWidth/2;
     sphereItem.position.y = Math.random() + 2;
@@ -27,6 +27,36 @@ const ballComposition = (scene, physics, loop, envmap) => {
     scene.add(sphereItem); 
     physics.add.existing(sphereItem);
     loop.updatables.push(sphereItem);
+
+    sphereItem.body.checkCollisions = true;
+    sphereItem.body.on.collision((otherObject, event) => {
+      // console.log(event);
+      // console.log(sphereItem.position);
+
+      if (event === 'start') {
+
+      }
+
+      if (event === 'collision') {
+        
+      }
+
+      if (event === 'end') {
+        
+      }
+
+      // if (event === 'start') {
+      //   console.log('collision', otherObject);
+      //   console.log('collision:p', otherObject.position);
+      //   console.log('collision:v', otherObject.body.velocity);
+      //   console.log('collision:a', otherObject.body.angularVelocity);
+      //   console.log('collision:mass', otherObject.body.getMass);
+
+      //   this.collisionMarker.position.x = otherObject.position.x;
+      //   this.collisionMarker.position.y = otherObject.position.y;
+      //   this.collisionMarker.position.z = otherObject.position.z;
+      // }
+    })
   } 
 }
 
