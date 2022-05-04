@@ -32,7 +32,7 @@ const createFloor = (scene, width = 20, height = 20, envmap) => {
     // emissive: 0x222222,
     // roughness: 0.8,
     metalness: 0,
-    map: mapTexture,
+    // map: mapTexture,
     aoMap: aoTexture,
     displacementMap: displacementTexture,
     displacementScale: 1 * displacement,
@@ -41,8 +41,9 @@ const createFloor = (scene, width = 20, height = 20, envmap) => {
     normalScale: new Vector2(0.3, 0.3),
     // normalScale: new Vector2(2.2, 2.2),
     roughnessMap: roughnessTexture
-  } 
+  }
   const material = new MeshStandardMaterial(parameters);
+  geometry.attributes.uv2 = geometry.attributes.uv; // second uv is needed for aoMap
   const mesh = new Mesh( geometry, material );
   mesh.receiveShadow = true;
   mesh.rotation.x = Math.degToRad(270);

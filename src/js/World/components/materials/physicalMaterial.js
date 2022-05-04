@@ -28,11 +28,13 @@ const plasticColor = (color, envmap) => {
     envMap: envmap.texture,
     envMapIntensity: 0.9,
 
-    clearcoat: 0,
-		metalness: 0.1,
-    roughness: 0.9,
+    clearcoat: 0.4,
+		metalness: 0,
+    roughness: 1,
     color: color,
     // emissive: 0x000000,
+
+    reflectivity: 0.4,
 
     // map: mapTexture,
     // aoMap: aoTexture,

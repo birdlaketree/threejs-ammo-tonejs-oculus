@@ -6,13 +6,12 @@ import { createCamera, createDolly } from './components/camera.js';
 import { createLights } from './components/lights.js';
 import { createFloor } from './components/meshes/floor.js';
 import { VrControls } from './system/VrControls.js';
-import { hingeComposition } from './components/bodies/hingeComposition.js';
 import { sphere } from './components/meshes/sphere.js';
-import { physicalMaterialShinyMetal} from './components/materials/physicalMaterial.js'
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
 import { AmmoPhysics, PhysicsLoader } from '@enable3d/ammo-physics';
 import { PMREMGenerator } from 'three';
-import { matteFrostedPlastics, shinyNoiseMetal, plasticColor } from './components/materials/physicalMaterial.js';
+import { plasticColor } from './components/materials/physicalMaterial.js';
+import { ballComposition } from './components/compositions/ballComposition.js';
 
 const hdrURL = new URL('/assets/textures/hdr/studio_small_08_2k.hdr', import.meta.url);
 
@@ -35,7 +34,7 @@ class World {
   }
 
   ammoStart() {
-    console.log('ammoStart.4');
+    console.log('ammoStart.5');
 
     this.physics = new AmmoPhysics(this.scene);
     // this.physics.debug.enable(true);
@@ -44,40 +43,37 @@ class World {
     const ground = this.physics.add.ground({ width: this.floorSize, height: this.floorSize, depth: 10, y:-5 });
     ground.visible = false;
 
+    ground.body.checkCollisions = true;
+    ground.body.on.collision((otherObject, event) => {
+      if (event === 'start') {
+        // console.log('collision', otherObject);
+        // console.log('collision:p', otherObject.position);
+        // console.log('collision:v', otherObject.body.velocity);
+        // console.log('collision:a', otherObject.body.angularVelocity);
+        // console.log('collision:mass', otherObject.body.getMass);
+
+        // this.collisionMarker.position.x = otherObject.position.x;
+        // this.collisionMarker.position.y = otherObject.position.y;
+        // this.collisionMarker.position.z = otherObject.position.z;
+        otherObject.body.applyForce
+      }
+    })
+
     new RGBELoader().load(hdrURL, (hdrmap) => this.buildScene(hdrmap));
   }
 
   buildScene(hdrmap) {
-    console.log('buildScene.4');
+    console.log('buildScene.5');
     const envmaploader = new PMREMGenerator(this.renderer);
     const envmap = envmaploader.fromCubemap(hdrmap);
 
     this.floor = createFloor(this.scene, this.floorSize, this.floorSize, envmap);
-    
-    const nItems = 20;
-    const spreadWidth = 10;
-    const hue = Math.random();
-    // const hue = 0.6;
 
-    for (let i = 0; i < nItems; i++) {
-      const hcp = {x: Math.random() * spreadWidth - spreadWidth/2, y:3, z:Math.random() * spreadWidth - spreadWidth/2};
-      const hc = hingeComposition(hcp, hue, this.scene, this.loop, this.physics, envmap);
-    }
+    // const markerMaterial = plasticColor(0xff0000, envmap);
+    // this.collisionMarker = sphere(markerMaterial, 0.15);
+    // this.scene.add(this.collisionMarker);
 
-    // const cItems = 100;
-    // const materialCPhysical = plasticColor(0x000000, envmap);
-    // for (let i = 0; i < cItems; i++) {
-    //   const sphereItem = sphere(materialCPhysical, 0.02);
-    //   sphereItem.position.x = Math.random() * spreadWidth - spreadWidth/2;
-    //   sphereItem.position.y = Math.random() + 2;
-    //   sphereItem.position.z = Math.random() * spreadWidth - spreadWidth/2;
-    //   this.scene.add(sphereItem); 
-    //   this.physics.add.existing(sphereItem);
-    // } 
-
-    // const sphereMaterial = physicalMaterialShinyMetal(0xffffff, envmap);
-    // const s = sphere(sphereMaterial, 1);
-    // this.scene.add(s);
+    const bc = ballComposition(this.scene, this.physics, this.loop, envmap);
   }
 
   start() {
