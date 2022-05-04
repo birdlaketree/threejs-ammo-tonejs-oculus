@@ -13,7 +13,7 @@ const displacementMapUrl = new URL('/assets/textures/noise-roughness.png', impor
 const normalMapUrl       = new URL('/assets/textures/noise-normal.png', import.meta.url);
 const roughnessMapUrl    = new URL('/assets/textures/noise-roughness.png', import.meta.url);
 
-const createFloor = (scene, size = 20, envmap) => {
+const createWalls = (scene, size = 20, envmap) => {
   const geometry = new PlaneGeometry(size, size, 64, 64);
 
   const repeat = 8;
@@ -86,4 +86,4 @@ const createFloor = (scene, size = 20, envmap) => {
   scene.add(wallBack);
 }
 
-export { createFloor };
+export { createWalls };

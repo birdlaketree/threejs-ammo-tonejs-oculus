@@ -63,7 +63,14 @@ const roomComposition = (physics, floorSize, isVisible = false) => {
   wallBack.visible = isVisible;
   wallBack.body.setCollisionFlags(collisionFlag);
 
-  return ground;
+  return {
+    ground,
+    ceeling,
+    wallLeft,
+    wallRight,
+    wallFront,
+    wallBack
+  };
 }
 
 export { roomComposition };
