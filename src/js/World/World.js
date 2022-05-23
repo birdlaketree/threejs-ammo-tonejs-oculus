@@ -30,14 +30,14 @@ class World {
     const vrControls = new VrControls(this.renderer, dolly, this.camera);
     this.loop.updatables.push(vrControls);
 
-    this.floorSize = 12;
+    this.floorSize = 15;
 
     PhysicsLoader('static/ammo', () => this.ammoStart());
   }
 
   ammoStart() {
     this.physics = new AmmoPhysics(this.scene);
-    // this.physics.debug.enable(true);
+    this.physics.debug.enable(true);
     this.loop.setPhysics(this.physics);
 
     const room = roomComposition(this.physics, this.floorSize, false);
@@ -45,7 +45,7 @@ class World {
   }
 
   buildScene(hdrmap) {
-    console.log('scene 10');
+    console.log('scene 12');
     const envmaploader = new PMREMGenerator(this.renderer);
     const envmap = envmaploader.fromCubemap(hdrmap);
     this.walls = createWalls(this.scene, this.floorSize, envmap);
