@@ -63,6 +63,14 @@ const roomComposition = (physics, floorSize, isVisible = false) => {
   wallBack.visible = isVisible;
   wallBack.body.setCollisionFlags(collisionFlag);
 
+  const bounciness = 0.7;
+  ground.body.setBounciness(bounciness);
+  ceeling.body.setBounciness(bounciness);
+  wallLeft.body.setBounciness(bounciness);
+  wallRight.body.setBounciness(bounciness);
+  wallFront.body.setBounciness(bounciness);
+  wallBack.body.setBounciness(bounciness);
+
   return {
     ground,
     ceeling,

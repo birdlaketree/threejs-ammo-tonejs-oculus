@@ -6,11 +6,11 @@ import { Tone } from "tone/build/esm/core/Tone";
 import { Oscillator } from "tone";
 
 const ballComposition = (scene, physics, loop, listener, envmap) => {
-  const cItems = 40;
+  const cItems = 2;
   const spreadWidth = 10;
 
-  // const hue = Math.random();
-  const hue = 0.8;
+  const hue = Math.random();
+  // const hue = 0.6;
 
   for (let i = 0; i < cItems; i++) {
     const hueShift = hue + Math.random() * 0.2 - 0.1;
@@ -31,6 +31,7 @@ const ballComposition = (scene, physics, loop, listener, envmap) => {
     physics.add.existing(sphereItem);
     loop.updatables.push(sphereItem);
 
+    sphereItem.body.setBounciness(0.7);
     // 
 
     // const positionalAudio = new PositionalAudio(listener);
