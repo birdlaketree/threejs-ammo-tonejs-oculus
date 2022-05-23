@@ -37,7 +37,7 @@ class World {
 
   ammoStart() {
     this.physics = new AmmoPhysics(this.scene);
-    this.physics.debug.enable(true);
+    // this.physics.debug.enable(true);
     this.loop.setPhysics(this.physics);
 
     const room = roomComposition(this.physics, this.floorSize, false);
